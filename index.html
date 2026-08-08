@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David Hill · AI Automation &amp; Development</title>
+<meta name="description" content="Multi-agent AI systems and full-stack platforms, designed, built, and kept running in production. Case studies, live demos, and a currently-hosted client site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      oklch(0.09 0 0);
+    --surface: oklch(0.15 0.006 160);
+    --surface-raised: oklch(0.19 0.008 160);
+    --ink:     oklch(0.95 0.004 160);
+    --muted:   oklch(0.68 0.01 160);
+    --primary: oklch(0.78 0.15 158);
+    --primary-ink: oklch(0.12 0.02 158);
+    --accent:  oklch(0.80 0.13 80);
+    --accent-ink: oklch(0.15 0.03 80);
+    --border:  oklch(1 0 0 / 0.09);
+
+    --font-display: "Big Shoulders Display", sans-serif;
+    --font-body: "Public Sans", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    --space-1: clamp(0.75rem, 0.7rem + 0.3vw, 1rem);
+    --space-2: clamp(1.25rem, 1.1rem + 0.7vw, 1.75rem);
+    --space-3: clamp(2rem, 1.7rem + 1.4vw, 3rem);
+    --space-4: clamp(3.5rem, 2.8rem + 3vw, 6rem);
+    --space-5: clamp(5rem, 3.8rem + 5vw, 9rem);
+
+    --z-sticky: 10;
+    --z-toast: 40;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p { text-wrap: pretty; }
+
+  a { color: var(--primary); }
+  a:not(.btn):not(.brandmark) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+  .wrap {
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: var(--space-2);
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) var(--space-2);
+    background: color-mix(in oklch, var(--bg) 78%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brandmark {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .brandmark b { color: var(--primary); }
+  .topbar nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-left: var(--space-2);
+  }
+  .topbar nav a:hover { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding-block: var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .eyebrow {
+    font-family: var(--font-mono);
+    color: var(--primary);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    margin: 0 0 var(--space-2);
+  }
+  .hero h1 {
+    font-size: clamp(2.75rem, 2rem + 5vw, 6rem);
+    max-width: 20ch;
+  }
+  .hero h1 .line { display: block; overflow: hidden; }
+  .hero h1 .line span {
+    display: block;
+    transform: translateY(110%);
+    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero h1 .line:nth-child(1) span { animation-delay: 0.05s; }
+  .hero h1 .line:nth-child(2) span { animation-delay: 0.16s; }
+  .hero h1 .line:nth-child(3) span { animation-delay: 0.27s; color: var(--primary); }
+  @keyframes rise { to { transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero h1 .line span { animation: none; transform: none; }
+  }
+
+  .hero p.lede {
+    max-width: 56ch;
+    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+    color: var(--muted);
+    margin-top: var(--space-3);
+  }
+  .hero .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .hero .meta strong { color: var(--ink); font-weight: 500; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.8em 1.4em;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+  .btn-ghost { color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--primary); }
+  .hero .actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap; }
+
+  /* ---------- section shell ---------- */
+  section.case {
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--border);
+  }
+  section.case:last-of-type { border-bottom: none; }
+
+  .case-head { max-width: 60ch; margin-bottom: var(--space-4); }
+  .case-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    margin: 0 0 var(--space-1);
+  }
+  .case-head h2 { font-size: clamp(2rem, 1.6rem + 2vw, 3.25rem); }
+  .case-dek { color: var(--muted); margin-top: var(--space-2); font-size: 1.05rem; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.35em 0.7em;
+    border-radius: 3px;
+    margin-top: var(--space-2);
+  }
+  .badge-live { background: color-mix(in oklch, var(--primary) 18%, transparent); color: var(--primary); border: 1px solid color-mix(in oklch, var(--primary) 45%, transparent); }
+  .badge-confidential { background: color-mix(in oklch, var(--accent) 18%, transparent); color: var(--accent); border: 1px solid color-mix(in oklch, var(--accent) 45%, transparent); }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .badge-live .badge-dot { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (prefers-reduced-motion: reduce) { .badge-live .badge-dot { animation: none; } }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: var(--space-2); }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.3em 0.6em;
+  }
+
+  .case-body { color: var(--ink); }
+  .case-body p { margin: 0 0 1em; max-width: 68ch; }
+  .case-body p:last-child { margin-bottom: 0; }
+  .case-body strong { color: var(--primary); font-weight: 600; }
+
+  .demo-note {
+    margin-top: var(--space-2);
+    padding: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+    max-width: 44ch;
+  }
+  .demo-note code { color: var(--ink); }
+
+  /* media-led layout, alternating */
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .case-grid { grid-template-columns: 1.1fr 1fr; gap: var(--space-4); }
+    .case-grid.flip .case-media { order: -1; }
+  }
+  .case-media img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .case-media figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.6em;
+  }
+
+  /* diagram sections (confidential) */
+  .diagram-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: var(--space-3);
+    overflow-x: auto;
+  }
+  .diagram-wrap svg { display: block; margin-inline: auto; max-width: 100%; height: auto; }
+  .diagram-wrap text { font-family: var(--font-mono); }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* footer */
+  footer {
+    padding-block: var(--space-4);
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); align-items: center; }
+  footer p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+  footer .fine-print { max-width: 60ch; font-size: 0.8rem; color: var(--muted); margin-top: var(--space-2); }
+
+  @media (max-width: 640px) {
+    .topbar nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brandmark" href="#top">DAVID<b>_</b>HILL</a>
+  <nav>
+    <a href="#agents">Agent systems</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<header class="hero wrap" id="top">
+  <p class="eyebrow">AI Automation &amp; Development</p>
+  <h1>
+    <span class="line"><span>Multi-agent AI systems,</span></span>
+    <span class="line"><span>designed and shipped</span></span>
+    <span class="line"><span>into production.</span></span>
+  </h1>
+  <p class="lede">I design agent architectures and full-stack platforms, then build and run them myself: a self-hosted multi-tenant AI deployment for a two-company client, plus the field-sales, market-data, and threat-intel tools below, all live and clickable.</p>
+  <div class="meta">
+    <span><strong>Based:</strong> Johannesburg, relocating to Cape Town</span>
+    <span><strong>Coding with AI tools since:</strong> 2022</span>
+  </div>
+  <div class="actions">
+    <a class="btn btn-primary" href="#agents">View the work ↓</a>
+    <a class="btn btn-ghost" href="mailto:hill.david9988@gmail.com">Get in touch</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ AGENT SYSTEMS (headline) ============ -->
+
+  <section class="case reveal" id="agents">
+    <div class="wrap">
+      <div class="case-head">
+        <p class="case-kicker">Client deployment</p>
+        <h2>Multi-Tenant Agent Deployment</h2>
+        <p class="case-dek">A self-hosted OpenClaw gateway running department-facing AI agents for two independent companies that share an office and a Slack workspace, but must never share data.</p>
+        <span class="badge badge-confidential"><span class="badge-dot"></span> Confidential: architecture documented, no public demo</span>
+        <div class="tags">
+          <span class="tag">OpenClaw</span>
+          <span class="tag">MemPalace</span>
+          <span class="tag">Slack / Discord / Telegram</span>
+          <span class="tag">ClickUp API</span>
+          <span class="tag">Microsoft Graph</span>
+        </div>
+      </div>
+
+      <div class="case-grid">
+        <div class="case-body">
+          <p>The hard part isn't giving one agent memory. It's holding two companies' worth of client and operational data on one gateway, handing slices of it to department-level agents that talk directly to teams instead of the operator, and <strong>proving, not just documenting</strong>, that a marketing agent can never read finance data.</p>
+          <p>Tenant isolation is structural: each agent's tool schema only contains the MCP prefixes for the memory palaces it's allowed to touch. A wrong-prefix call isn't rejected by a permission check an agent could argue its way around; the tool is <strong>absent from its schema</strong>, verified by direct agent-turn tests in both directions.</p>
+          <p><strong>Jeeves</strong>, the studio-side executive assistant, is carrying real operational load right now: polling 17+ client WordPress sites for security alerts every 30 minutes and posting only what matters to Slack, plus live ClickUp task reporting. Two more department agents (Nova, Sage) are fully built and scoped, paused for team rollout.</p>
+        </div>
+        <div class="case-media">
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 640 380" role="img" aria-label="Architecture diagram: OpenClaw gateway routing to four agents, two isolated memory palaces plus a shared cross-tenant palace, out to Slack, Discord, and Telegram">
+              <defs>
+                <marker id="arrow1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/></marker>
+              </defs>
+              <style>
+                .node { fill: var(--surface-raised); stroke: var(--border); stroke-width: 1; }
+                .node-live { stroke: var(--primary); }
+                .lbl { fill: var(--ink); font-size: 12px; }
+                .lbl-sub { fill: var(--muted); font-size: 9.5px; }
+                .lnk { stroke: var(--muted); stroke-width: 1; fill: none; opacity: 0.6; }
+              </style>
+
+              <rect x="20" y="16" width="600" height="52" rx="6" class="node node-live"/>
+              <text x="320" y="38" text-anchor="middle" class="lbl">OpenClaw Gateway</text>
+              <text x="320" y="54" text-anchor="middle" class="lbl-sub">self-hosted · Mac Mini</text>
+
+              <g>
+                <rect x="20" y="100" width="135" height="46" rx="5" class="node node-live"/>
+                <text x="87" y="120" text-anchor="middle" class="lbl">Orchestrator</text>
+                <text x="87" y="134" text-anchor="middle" class="lbl-sub">gateway / operator</text>
+
+                <rect x="170" y="100" width="135" height="46" rx="5" class="node node-live"/>
+                <text x="237" y="120" text-anchor="middle" class="lbl">Jeeves</text>
+                <text x="237" y="134" text-anchor="middle" class="lbl-sub">EA · live production</text>
+
+                <rect x="320" y="100" width="135" height="46" rx="5" class="node"/>
+                <text x="387" y="120" text-anchor="middle" class="lbl">Nova</text>
+                <text x="387" y="134" text-anchor="middle" class="lbl-sub">marketing · paused</text>
+
+                <rect x="470" y="100" width="135" height="46" rx="5" class="node"/>
+                <text x="537" y="120" text-anchor="middle" class="lbl">Sage</text>
+                <text x="537" y="134" text-anchor="middle" class="lbl-sub">social · paused</text>
+              </g>
+
+              <path class="lnk" d="M320,68 L87,100" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M320,68 L237,100" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M320,68 L387,100" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M320,68 L537,100" marker-end="url(#arrow1)"/>
+
+              <rect x="120" y="190" width="400" height="60" rx="6" class="node node-live"/>
+              <text x="320" y="212" text-anchor="middle" class="lbl">Shared Memory Palace</text>
+              <text x="320" y="228" text-anchor="middle" class="lbl-sub">wing: ops-tenant · wing: studio-tenant</text>
+              <text x="320" y="242" text-anchor="middle" class="lbl-sub">+ cross-agent Knowledge Graph (confirm-or-kill)</text>
+
+              <path class="lnk" d="M87,146 L200,190" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M237,146 L280,190" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M387,146 L370,190" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M537,146 L440,190" marker-end="url(#arrow1)"/>
+
+              <g>
+                <rect x="60" y="300" width="150" height="44" rx="5" class="node"/>
+                <text x="135" y="326" text-anchor="middle" class="lbl">Slack</text>
+                <rect x="245" y="300" width="150" height="44" rx="5" class="node"/>
+                <text x="320" y="326" text-anchor="middle" class="lbl">Discord</text>
+                <rect x="430" y="300" width="150" height="44" rx="5" class="node"/>
+                <text x="505" y="326" text-anchor="middle" class="lbl">Telegram</text>
+              </g>
+              <path class="lnk" d="M320,250 L135,300" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M320,250 L320,300" marker-end="url(#arrow1)"/>
+              <path class="lnk" d="M320,250 L505,300" marker-end="url(#arrow1)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case reveal">
+    <div class="wrap">
+      <div class="case-head">
+        <p class="case-kicker">Personal deployment</p>
+        <h2>Personal Multi-Agent Stack</h2>
+        <p class="case-dek">A self-hosted fleet of isolated agents in daily production use, including a flagship deployment for a professional cycling coach managing real athlete training data.</p>
+        <span class="badge badge-confidential"><span class="badge-dot"></span> Confidential: architecture documented, no public demo</span>
+        <div class="tags">
+          <span class="tag">OpenClaw</span>
+          <span class="tag">ChromaDB + Knowledge Graph</span>
+          <span class="tag">Kimi K3</span>
+          <span class="tag">Ollama (local inference)</span>
+          <span class="tag">Telegram Bot API</span>
+        </div>
+      </div>
+
+      <div class="case-grid flip">
+        <div class="case-body">
+          <p><strong>Mani</strong>, the standout deployment here, is a sports-science agent built for a professional cycling coach: it designs periodised training plans, tracks athlete performance data, and maintains a persistent per-athlete memory of form history, injury flags, and PB records. Real athletes, real training outcomes, not a demo.</p>
+          <p>Every agent gets a physically isolated memory palace: <strong>zero shared state</strong> between Lysander (primary), Mani (sports science), and Scully (family support), enforced by palace-prefix lockdown at the tool-schema level, the same isolation mechanism used on the client deployment above.</p>
+          <p>The memory system underneath, MemPalace, hits <strong>96.6% recall</strong> on LongMemEval (a published top score for this kind of semantic-search-plus-knowledge-graph architecture), running entirely on self-hosted infrastructure with zero cloud dependency for execution.</p>
+        </div>
+        <div class="case-media">
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 640 320" role="img" aria-label="Architecture diagram: OpenClaw gateway routing to three isolated personal agents plus local inference, into a shared MemPalace memory system, out to Telegram and calendar/execution tools">
+              <defs>
+                <marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--muted)"/></marker>
+              </defs>
+              <style>
+                .node2 { fill: var(--surface-raised); stroke: var(--border); stroke-width: 1; }
+                .node2-live { stroke: var(--primary); }
+                .lbl2 { fill: var(--ink); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+                .lbl2-sub { fill: var(--muted); font-size: 9.5px; font-family: 'JetBrains Mono', monospace; }
+                .lnk2 { stroke: var(--muted); stroke-width: 1; fill: none; opacity: 0.6; }
+              </style>
+
+              <rect x="170" y="16" width="300" height="48" rx="6" class="node2 node2-live"/>
+              <text x="320" y="36" text-anchor="middle" class="lbl2">OpenClaw Gateway</text>
+              <text x="320" y="51" text-anchor="middle" class="lbl2-sub">self-hosted · Linux</text>
+
+              <rect x="20" y="96" width="140" height="46" rx="5" class="node2"/>
+              <text x="90" y="116" text-anchor="middle" class="lbl2">Lysander</text>
+              <text x="90" y="130" text-anchor="middle" class="lbl2-sub">primary agent</text>
+
+              <rect x="175" y="96" width="140" height="46" rx="5" class="node2 node2-live"/>
+              <text x="245" y="116" text-anchor="middle" class="lbl2">Mani</text>
+              <text x="245" y="130" text-anchor="middle" class="lbl2-sub">sports science · flagship</text>
+
+              <rect x="330" y="96" width="140" height="46" rx="5" class="node2"/>
+              <text x="400" y="116" text-anchor="middle" class="lbl2">Scully</text>
+              <text x="400" y="130" text-anchor="middle" class="lbl2-sub">family support</text>
+
+              <rect x="485" y="96" width="135" height="46" rx="5" class="node2"/>
+              <text x="552" y="116" text-anchor="middle" class="lbl2">Gemma4</text>
+              <text x="552" y="130" text-anchor="middle" class="lbl2-sub">local inference</text>
+
+              <path class="lnk2" d="M320,64 L90,96" marker-end="url(#arrow2)"/>
+              <path class="lnk2" d="M320,64 L245,96" marker-end="url(#arrow2)"/>
+              <path class="lnk2" d="M320,64 L400,96" marker-end="url(#arrow2)"/>
+              <path class="lnk2" d="M320,64 L552,96" marker-end="url(#arrow2)"/>
+
+              <rect x="120" y="186" width="400" height="58" rx="6" class="node2 node2-live"/>
+              <text x="320" y="208" text-anchor="middle" class="lbl2">MemPalace: isolated per-agent palaces</text>
+              <text x="320" y="224" text-anchor="middle" class="lbl2-sub">ChromaDB + Knowledge Graph · 96.6% recall</text>
+
+              <path class="lnk2" d="M90,142 L200,186" marker-end="url(#arrow2)"/>
+              <path class="lnk2" d="M245,142 L270,186" marker-end="url(#arrow2)"/>
+              <path class="lnk2" d="M400,142 L370,186" marker-end="url(#arrow2)"/>
+
+              <rect x="130" y="278" width="170" height="42" rx="5" class="node2"/>
+              <text x="215" y="303" text-anchor="middle" class="lbl2">Telegram</text>
+              <rect x="340" y="278" width="170" height="42" rx="5" class="node2"/>
+              <text x="425" y="303" text-anchor="middle" class="lbl2">Calendar / SSH / Git</text>
+
+              <path class="lnk2" d="M320,244 L215,278" marker-end="url(#arrow2)"/>
+              <path class="lnk2" d="M320,244 L425,278" marker-end="url(#arrow2)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+
+  <section class="case reveal" id="projects">
+    <div class="wrap">
+      <div class="case-head">
+        <p class="case-kicker">Field-sales platform</p>
+        <h2>Meridian Doctors Map</h2>
+        <p class="case-dek">Field-sales mapping platform built for a healthcare distribution network's rep team.</p>
+        <span class="badge badge-live"><span class="badge-dot"></span> Live demo: sanitized rebuild, no real client data</span>
+        <div class="tags">
+          <span class="tag">Node.js / Express</span>
+          <span class="tag">Sequelize + MariaDB</span>
+          <span class="tag">Leaflet.js</span>
+          <span class="tag">TOTP 2FA</span>
+          <span class="tag">React Native + PWA</span>
+        </div>
+      </div>
+      <div class="case-grid">
+        <div class="case-body">
+          <p>An interactive map giving field reps and managers a live view of doctors, medical centres, and daily visit activity across regional sales territories, with automated daily reports on visits and data changes so nobody has to compile them by hand.</p>
+          <p>Ships across <strong>three platform surfaces</strong> from one backend: the desktop map, an installable mobile PWA for reps in the field (works offline, dedupes queued visit logs server-side), and a React Native companion app.</p>
+          <p>Bulk doctor imports handle 20+ spreadsheet column-name variants, fuzzy-match duplicates, and batch-geocode through a three-provider fallback chain, the same chain used for interactive single-address lookups.</p>
+          <a class="btn btn-primary" href="https://doctorsmap-demo.necroknollnexus.dpdns.org/" target="_blank" rel="noopener">Open live demo ↗</a>
+          <div class="demo-note">
+            Login: <code>admin</code> / <code>password123</code><br>
+            2FA is a real, implemented feature; the setup screen is genuine. In this demo it accepts any 6-digit code, so you don't need an authenticator app to look around.
+          </div>
+        </div>
+        <div class="case-media">
+          <img src="assets/doctorsmap/map-view.jpg" alt="Meridian Doctors Map dashboard showing an interactive Leaflet map with doctor and centre markers, a status legend, and route controls" loading="lazy">
+          <figcaption>Interactive map view</figcaption>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case reveal">
+    <div class="wrap">
+      <div class="case-head">
+        <p class="case-kicker">Market dashboard</p>
+        <h2>MarketPulse</h2>
+        <p class="case-dek">Daily market-briefing dashboard built for a financial advisory practice, with automated Telegram delivery.</p>
+        <span class="badge badge-live"><span class="badge-dot"></span> Live demo: sanitized rebuild, no real client data</span>
+        <div class="tags">
+          <span class="tag">React + TypeScript</span>
+          <span class="tag">Express + Prisma</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Claude summarization</span>
+          <span class="tag">JWT + TOTP 2FA</span>
+        </div>
+      </div>
+      <div class="case-grid flip">
+        <div class="case-body">
+          <p>What used to be a manual copy-paste-and-format routine across half a dozen browser tabs is now a single-page workflow: pull fresh index, forex, and commodity data plus region-specific news, review AI-generated summaries, and send a formatted daily briefing to a Telegram channel with one click.</p>
+          <p>Went through <strong>two full generations</strong>: a single-file Flask prototype built to prove the workflow fast, then a full React + Express rewrite with a real database, token-based auth, and a test suite, without changing anything about how advisors actually use it day to day.</p>
+          <p>Access tokens are short-lived and refresh tokens are revocable server-side by hash, so a compromised token can be killed without waiting for it to expire.</p>
+          <a class="btn btn-primary" href="https://marketpulse-demo.necroknollnexus.dpdns.org/" target="_blank" rel="noopener">Open live demo ↗</a>
+          <div class="demo-note">
+            Login: <code>demo</code> / <code>DemoPass123!</code><br>
+            Same real 2FA flow as above; any 6-digit code works in this demo.
+          </div>
+        </div>
+        <div class="case-media">
+          <img src="assets/marketpulse/dashboard.jpg" alt="MarketPulse dashboard showing US and European market movers, gainers and losers, and a Telegram message preview panel" loading="lazy">
+          <figcaption>Market dashboard and message builder</figcaption>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case reveal">
+    <div class="wrap">
+      <div class="case-head">
+        <p class="case-kicker">Security tooling</p>
+        <h2>Charlie Dashboard</h2>
+        <p class="case-dek">Threat-intel and competitive-radar tool built for a cybersecurity vendor's sales and content teams.</p>
+        <span class="badge badge-live"><span class="badge-dot"></span> Live demo: frontend-only, read-only sandbox</span>
+        <div class="tags">
+          <span class="tag">React + Vite + Tailwind</span>
+          <span class="tag">Fastify + Prisma</span>
+          <span class="tag">WebAuthn + TOTP</span>
+          <span class="tag">Claude / self-hosted LLM</span>
+        </div>
+      </div>
+      <div class="case-grid flip">
+        <div class="case-body">
+          <p>Scrapes cybersecurity RSS feeds, AI-summarizes the news, and runs a "Competitor Radar" against named rival companies' public sites, plus an AI content studio and a lightweight outreach CRM, all behind mandatory 2FA in production.</p>
+          <p>The real system runs on a Fastify + PostgreSQL backend with argon2 password hashing and WebAuthn support. This public demo is <strong>frontend-only</strong>: no live database, scraping, or AI calls anywhere in the loop. It boots straight into a read-only session against static fixtures.</p>
+          <a class="btn btn-primary" href="https://charlie-demo.necroknollnexus.dpdns.org/" target="_blank" rel="noopener">Open live demo ↗</a>
+          <div class="demo-note">
+            No login required. It opens straight into a read-only demo session.
+          </div>
+        </div>
+        <div class="case-media">
+          <img src="assets/charlie/dashboard.jpg" alt="Charlie Dashboard workspace view showing a morning briefing with intel feed, outreach, and content studio summary cards, and a pipeline snapshot of prospects" loading="lazy">
+          <figcaption>Workspace dashboard</figcaption>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case reveal">
+    <div class="wrap">
+      <div class="case-head">
+        <p class="case-kicker">Client site, self-managed</p>
+        <h2>HillSkills.co.za</h2>
+        <p class="case-dek">Built, hosted, and still managed end-to-end for my brother's mountain-bike coaching business.</p>
+        <span class="badge badge-live"><span class="badge-dot"></span> Live: real production site, no sanitization needed</span>
+        <div class="tags">
+          <span class="tag">HTML / CSS / JS</span>
+          <span class="tag">PHP</span>
+          <span class="tag">Microsoft Graph mail API</span>
+          <span class="tag">Self-hosted</span>
+        </div>
+      </div>
+      <div class="case-grid">
+        <div class="case-body">
+          <p>Full ownership, start to finish: brand identity, page design, frontend build, a PHP contact backend sending through Microsoft Graph with honeypot spam protection, and the hosting and DNS keeping it live today at <strong>hillskills.co.za</strong>.</p>
+          <p>This is the one project on this page that isn't a rebuild or a sanitized rebuild of client work. It's the real, currently-running site, still maintained by me.</p>
+          <a class="btn btn-primary" href="https://hillskills.co.za/" target="_blank" rel="noopener">Visit hillskills.co.za ↗</a>
+        </div>
+        <div class="case-media">
+          <img src="assets/hillskills/hero.jpg" alt="HillSkills homepage hero showing the tagline 'Ride Your Line, Unlock Your Potential' over a mountain bike group photo" loading="lazy">
+          <figcaption>Homepage hero</figcaption>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div>
+      <p><strong style="color:var(--ink)">David Hill</strong>, AI Automation &amp; Development</p>
+      <p class="fine-print">Client project names, identities, and other identifying details on this page are anonymized or fictionalized per confidentiality agreements. The architecture, features, and engineering decisions described are real. Live demos are sanitized, self-hosted rebuilds seeded with synthetic data; none of them contain real client data.</p>
+    </div>
+    <a class="btn btn-ghost" href="mailto:hill.david9988@gmail.com">hill.david9988@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
