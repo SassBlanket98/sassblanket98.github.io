@@ -49,8 +49,8 @@
         <p class="lede">I design agent architecture and security boundaries, then build the rest myself: the backend, the frontend, and the infrastructure it all runs on. Every project is either live for a real client or running as an interactive demo you can open right now.</p>
 
         <div class="btn-row">
-          <a href="#ai-systems" class="btn btn-primary">$ open ./work</a>
-          <a href="assets/cv/David_Hill_CV.pdf" class="btn btn-ghost" download>$ curl -O cv.pdf</a>
+          <a href="#ai-systems" class="btn btn-ghost">$ open ./work</a>
+          <a href="assets/cv/David_Hill_CV.pdf" class="btn btn-primary" download>&#8595; $ curl -O cv.pdf</a>
           <a href="mailto:david.alexander.hill@outlook.com" class="btn btn-ghost">$ mail --to me</a>
         </div>
 
@@ -81,7 +81,7 @@
           <div class="term-body">
             <div class="term-line"><span class="prompt">$</span><span class="cmd">cat about.md</span></div>
             <p>I've been coding with AI tools since 2022, from early manual prompt loops through to the agentic workflows I use daily now. That history is the actual edge: I design system architecture and agent behavior, then deliver through AI-assisted development, owning the design decisions, the code review, the debugging, and the production validation myself.</p>
-            <p>I self-host a personal multi-agent AI stack in daily use, and led the deployment of a production multi-agent system for a client workforce, including a ChromaDB-based memory system exposing 29 tool functions across agents. Outside of AI work, I built and run a Proxmox VE cluster from scratch, sole-managing its backup infrastructure and the live production VMs on it, alongside practical, on-the-job experience with Windows Server administration and basic networking. That hands-on infrastructure background is a large part of why I'm comfortable owning a project from architecture through to the server it runs on.</p>
+            <p>I self-host a personal multi-agent AI stack in daily use, and led the deployment of a production multi-agent system for a client workforce, including a ChromaDB-based memory system exposing 33 tool functions across agents. Outside of AI work, I implement and sole-operate Neozeit's Proxmox VE cluster, managing its backup infrastructure and the live production VMs on it, alongside practical, on-the-job experience with Windows Server administration and basic networking. That hands-on infrastructure background is a large part of why I'm comfortable owning a project from architecture through to the server it runs on.</p>
           </div>
         </div>
 
@@ -98,7 +98,7 @@
             <div class="env-line"><span class="key">FOCUS=</span><span class="val">Multi-agent AI systems, agentic architecture, full-stack delivery</span></div>
             <div class="env-line"><span class="key">STACK=</span><span class="val">Python, TypeScript/JavaScript, Node.js, React, Postgres, self-hosted infra</span></div>
             <div class="env-line"><span class="key">CURRENTLY=</span><span class="val">IT Engineer, Development &amp; Automation (Neozeit)</span></div>
-            <div class="env-line"><span class="key">SEEKING=</span><span class="val">Roles where AI development, LLM engineering, and automation intersect</span></div>
+            <div class="env-line"><span class="key">SEEKING=</span><span class="val">Roles building and operating production AI/agent systems</span></div>
           </div>
         </div>
       </div>
@@ -149,6 +149,7 @@
             <div class="decision-line"><span class="marker">//</span><span>Isolation is structural: forbidden tools are absent from an agent's schema, not blocked by a policy it could reason around.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Department agents report to the teams that own the work, not back through the operator.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>A live prompt-injection attempt via a raw curl-delivered "skill" was caught and blocked by the governed install pipeline in this exact deployment.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>5 MCP servers on this gateway, 33 tools per MemPalace instance; one of them (ClickUp) is a server I built in-house. No agent gets the full set, each schema whitelists only what that role needs.</span></div>
           </div>
 
           <div class="diagram">
@@ -301,18 +302,17 @@
           <div class="status-row"><span class="status-dot outline" aria-hidden="true"></span><span class="status-label is-muted">INTERACTIVE DEMO</span></div>
           <h3>MarketPulse</h3>
           <p class="project-subtitle">Market dashboard &middot; React, Express, Postgres</p>
-          <p class="project-desc">A daily market-briefing tool for a financial advisory practice: pull fresh index, forex, and commodity data plus regional news, review AI-generated summaries, and send a formatted briefing to a Telegram channel from one send button. Rebuilt from a single-file Flask prototype into a full React/Express stack without changing how the advisors use it.</p>
+          <p class="project-desc">A daily market-briefing tool for a financial advisory practice: pull fresh index, forex, and commodity data plus regional news, review the day's articles, and send a formatted briefing to a Telegram channel from one send button. Rebuilt from a single-file Flask prototype into a full React/Express stack without changing how the advisors use it.</p>
 
           <div class="tag-row">
             <span class="tag">React + Vite</span>
             <span class="tag">Express + Prisma</span>
-            <span class="tag">Claude summarization</span>
             <span class="tag">Telegram Bot API</span>
             <span class="tag">JWT + TOTP 2FA</span>
           </div>
 
           <div class="stat-chip-row">
-            <span class="stat-chip"><span class="lead">4</span> external services, all demo-stubbed</span>
+            <span class="stat-chip"><span class="lead">3</span> external services, all demo-stubbed</span>
             <span class="stat-chip"><span class="lead">0</span> API keys needed to run it</span>
           </div>
 
@@ -321,8 +321,8 @@
             <div class="diagram-line"><span class="marker">&gt;</span> React SPA</div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Express API</div>
             <div class="diagram-line" style="padding-left:32px;"><span class="marker">&gt;</span> &#9492;&#9472; Postgres (users, market cache)</div>
-            <div class="diagram-line"><span class="marker">&gt;</span> market_data.py (yfinance, FRED, FX) &middot; Claude API (summaries) &middot; Telegram API (delivery) &middot; RSS feeds (per region)</div>
-            <div class="diagram-line"><span class="marker">&gt;</span> DEMO_MODE=1 &#8594; all four replaced with fixtures<span class="badge"> [no live calls]</span></div>
+            <div class="diagram-line"><span class="marker">&gt;</span> market_data.py (yfinance, FRED, FX) &middot; Telegram API (delivery) &middot; RSS feeds (per region)</div>
+            <div class="diagram-line"><span class="marker">&gt;</span> DEMO_MODE=1 &#8594; all three replaced with fixtures<span class="badge"> [no live calls]</span></div>
           </div>
 
           <p class="caption">Client name replaced with "MarketPulse" throughout.</p>
@@ -345,18 +345,18 @@
         <div class="term-body">
           <div class="status-row"><span class="status-dot outline" aria-hidden="true"></span><span class="status-label is-muted">INTERACTIVE DEMO (FRONTEND-ONLY)</span></div>
           <h3>Vantage Point Dashboard</h3>
-          <p class="project-subtitle">Competitive-intel platform &middot; React, Fastify, self-hosted LLM</p>
+          <p class="project-subtitle">Competitive-intel platform &middot; React, Fastify, Anthropic Messages API</p>
           <p class="project-desc">A competitive-intelligence dashboard for a cybersecurity vendor: an AI-curated news feed, a competitor tracker with SWOT profiles, an AI content generator, and a lightweight outreach CRM, behind one login. Styled as a cyber-terminal on purpose: the client's own product is a security tool, and the dashboard they use to sell it looks like one too.</p>
 
           <div class="tag-row">
             <span class="tag">React + Fastify</span>
             <span class="tag">Prisma / Postgres</span>
-            <span class="tag">Self-hosted Ollama</span>
+            <span class="tag">Anthropic Messages API</span>
             <span class="tag">WebAuthn + TOTP</span>
           </div>
 
           <div class="stat-chip-row">
-            <span class="stat-chip"><span class="lead">Local LLM</span> &mdash; no data leaves to a third party</span>
+            <span class="stat-chip"><span class="lead">Custom agent loop</span> &mdash; no framework</span>
             <span class="stat-chip"><span class="lead">0</span> backend calls in this demo</span>
           </div>
 
@@ -365,7 +365,7 @@
             <div class="diagram-line"><span class="marker">&gt;</span> React + Vite (Intel &middot; Radar &middot; Content &middot; Outreach &middot; Admin)</div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Fastify API</div>
             <div class="diagram-line" style="padding-left:32px;"><span class="marker">&gt;</span> &#9492;&#9472; Prisma &#8594; Postgres</div>
-            <div class="diagram-line" style="padding-left:48px;"><span class="marker">&gt;</span> &#9492;&#9472; Self-hosted Ollama (summarize, score, draft)</div>
+            <div class="diagram-line" style="padding-left:48px;"><span class="marker">&gt;</span> &#9492;&#9472; Custom agent loop, Anthropic Messages API (summarize, score, draft)</div>
             <div class="diagram-line"><span class="marker">&gt;</span> Public demo runs the top box only, against static fixtures<span class="badge"> [no backend]</span></div>
           </div>
 
