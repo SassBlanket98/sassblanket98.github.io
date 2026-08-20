@@ -80,7 +80,7 @@
           </div>
           <div class="term-body">
             <div class="term-line"><span class="prompt">$</span><span class="cmd">cat about.md</span></div>
-            <p>I've been coding with AI tools since 2022, from early manual prompt loops through to the agentic workflows I use daily now. That history is the actual edge: I design system architecture and agent behavior, then deliver through AI-assisted development, owning the design decisions, the code review, the debugging, and the production validation myself.</p>
+            <p>I've been coding with AI tools since 2022, from early manual prompt loops through to the agentic workflows I use daily now. That history is the actual edge: I design system architecture and agent behavior, and own the design decisions, the code review, the debugging, and the production validation myself.</p>
             <p>I self-host a personal multi-agent AI stack in daily use, and led the deployment of a production multi-agent system for a client workforce, including a ChromaDB-based memory system exposing 33 tool functions across agents. Outside of AI work, I implement and sole-operate Neozeit's Proxmox VE cluster, managing its backup infrastructure and the live production VMs on it, alongside practical, on-the-job experience with Windows Server administration and basic networking. That hands-on infrastructure background is a large part of why I'm comfortable owning a project from architecture through to the server it runs on.</p>
           </div>
         </div>
@@ -148,8 +148,8 @@
           <div class="decisions">
             <div class="decision-line"><span class="marker">//</span><span>Isolation is structural: forbidden tools are absent from an agent's schema, not blocked by a policy it could reason around.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Department agents report to the teams that own the work, not back through the operator.</span></div>
-            <div class="decision-line"><span class="marker">//</span><span>A live prompt-injection attempt via a raw curl-delivered "skill" was caught and blocked by the governed install pipeline in this exact deployment.</span></div>
-            <div class="decision-line"><span class="marker">//</span><span>5 MCP servers on this gateway, 33 tools per MemPalace instance; one of them (ClickUp) is a server I built in-house. No agent gets the full set, each schema whitelists only what that role needs.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>A raw curl-delivered "skill," as a deliberate test: two separate agent sessions, on two separate channels, refused to install it on judgment alone, before tool deny lists existed, and held that refusal when told directly to install it anyway.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>5 MCP servers on this gateway, 33 tools per MemPalace instance; one of them (ClickUp) is a server I built in-house because the official ClickUp MCP server has no OpenClaw support. No agent gets the full set, each schema whitelists only what that role needs.</span></div>
           </div>
 
           <div class="diagram">
@@ -201,7 +201,6 @@
           </div>
 
           <div class="stat-chip-row">
-            <span class="stat-chip"><span class="lead">96.6%</span> memory recall</span>
             <span class="stat-chip"><span class="lead">3</span> isolated agents</span>
             <span class="stat-chip"><span class="lead">0</span> cloud dependency to run</span>
           </div>
@@ -212,7 +211,8 @@
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Primary &mdash; Kimi K3</div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Family agent &mdash; Kimi K3</div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Family agent &mdash; Kimi K3</div>
-            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Local inference &mdash; Ollama<span class="badge"> [free]</span></div>
+            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Fallback &mdash; GLM-5.2 (all agents, plus scheduled jobs needing judgement)</div>
+            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Local inference &mdash; gemma4:12b<span class="badge"> [free]</span> (lightweight scheduled tasks)</div>
             <div class="diagram-line"><span class="marker">&gt;</span> MemPalace</div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; isolated palace per agent &mdash; ChromaDB + Knowledge Graph, temporal validity</div>
           </div>
@@ -221,8 +221,6 @@
             <div class="line"><span class="cmd-prompt">$</span><span class="cmd-text">curl -s fleet.internal/demo</span></div>
             <div class="line"><span class="resp-prompt">&gt;</span><span class="resp-text">403 Forbidden &mdash; private family deployment. No public demo.</span></div>
           </div>
-
-          <p class="caption">Semantic recall benchmarked against LongMemEval.</p>
 
           <div class="project-links">
             <a class="btn btn-ghost" href="https://github.com/SassBlanket98/personal-ai-stack" target="_blank" rel="noopener">View write-up on GitHub &rarr;</a>
