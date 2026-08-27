@@ -69,7 +69,7 @@
 
       <div class="hero-stats">
         <div class="hero-stat"><div class="value">2</div><div class="label">Live agents, 2 beta</div></div>
-        <div class="hero-stat"><div class="value">2</div><div class="label">Tenant companies, zero data crossover</div></div>
+        <div class="hero-stat"><div class="value">2</div><div class="label">Tenant companies on one gateway</div></div>
         <div class="hero-stat"><div class="value">2</div><div class="label">Beta demos, open below</div></div>
         <div class="hero-stat"><div class="value">2022</div><div class="label">Shipping with AI tools since</div></div>
       </div>
@@ -110,7 +110,7 @@
           <div class="stat-list">
             <span class="stat"><b>2</b> live agents</span>
             <span class="stat"><b>2</b> beta agents</span>
-            <span class="stat"><b>Schema-level</b> isolation</span>
+            <span class="stat"><b>Role-scoped</b> tool access</span>
           </div>
           <div class="tag-row">
             <span class="tag">OpenClaw</span>
@@ -121,12 +121,13 @@
         </div>
         <div class="spec-detail">
           <h3>Multi-Tenant AI Gateway</h3>
-          <div class="spec-subtitle">Client deployment &middot; one gateway, two companies, zero shared context</div>
-          <p class="spec-desc">This gateway runs separate department-facing AI agents for two independent companies that share an office and a Slack workspace. Neither company can see the other's data. Giving an agent memory is the easy part; the real work was proving, with the schema itself and not just documentation, that one company's information can never reach the other's context.</p>
+          <div class="spec-subtitle">Client deployment &middot; one gateway, two companies, separately scoped agents</div>
+          <p class="spec-desc">This gateway runs separate department-facing AI agents for two independent companies that share an office and a Slack workspace. Each agent's tools and data access are scoped to its own role and tenant, not shared by default. That scoping isn't a solved, closed problem: it's something I keep testing and tightening as gaps turn up, not a claim that crossover is impossible.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>Isolation is structural: forbidden tools are absent from an agent's schema, not blocked by a policy it could reason around.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>Each agent's tool schema only includes what its role needs, so a tool it shouldn't use isn't offered as an option, rather than relying on a policy telling it not to.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Department agents report to the teams that own the work, not back through the operator.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>Scope changes go through review before they ship, since this is the boundary that matters most if something goes wrong.</span></div>
           </div>
 
           <div class="diagram">
@@ -158,26 +159,24 @@
         <div class="spec-meta">
           <div class="status-row is-accent"><span class="status-dot filled" aria-hidden="true"></span>LIVE IN PRODUCTION</div>
           <div class="stat-list">
-            <span class="stat">Self-hosted</span>
-            <span class="stat">Local + cloud fallback</span>
+            <span class="stat">Self-hosted gateway</span>
+            <span class="stat">OpenAI Codex models</span>
           </div>
           <div class="tag-row">
             <span class="tag">OpenClaw</span>
             <span class="tag">MemPalace</span>
-            <span class="tag">Ollama</span>
+            <span class="tag">OpenAI Codex</span>
           </div>
         </div>
         <div class="spec-detail">
           <h3>Personal AI Stack</h3>
           <div class="spec-subtitle">Self-hosted &middot; daily use</div>
-          <p class="spec-desc">A self-hosted multi-agent setup I run day to day: research, planning, general automation. It's built on OpenClaw, with MemPalace (open source) handling memory. Local inference covers the lightweight scheduled jobs, so most of it runs without touching the cloud.</p>
+          <p class="spec-desc">A self-hosted multi-agent setup I run day to day: research, planning, general automation. It's built on OpenClaw, with MemPalace (open source) handling memory, running on OpenAI Codex models under my own subscription.</p>
 
           <div class="diagram">
             <div class="diagram-cmd">$ ./stack --status</div>
             <div class="diagram-line"><span class="marker">&gt;</span> OpenClaw Gateway (self-hosted)</div>
-            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Primary agent &mdash; Kimi K3</div>
-            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Fallback &mdash; GLM-5.2 (all agents, plus scheduled jobs needing judgement)</div>
-            <div class="diagram-line" style="padding-left:32px;"><span class="marker">&gt;</span> &#9492;&#9472; Local inference &mdash; gemma4:12b <span class="badge">[free]</span></div>
+            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Model routing &mdash; selected per task and reviewed as the system changes</div>
             <div class="diagram-line"><span class="marker">&gt;</span> MemPalace (open source) &mdash; diary + checkpoint workflows I built on top</div>
           </div>
 
