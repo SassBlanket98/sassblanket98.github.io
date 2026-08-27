@@ -1,33 +1,56 @@
 # Product
 
-## Register
+<!-- impeccable:product-schema 1 -->
 
-brand
+## Platform
+
+web
 
 ## Users
 
-Prospective freelance/contract clients evaluating David Hill as an AI automation and full-stack developer — small business owners, startup founders, or agencies who found him through his CV, a referral, or a direct link, and are deciding whether to reach out for work. They're technical enough to recognize real engineering when they see it, or non-technical and relying on "does this look credible and well-built" as their signal. Their context: quickly scanning to answer "can this person actually build production software, or is this padding on a CV."
+Hiring managers and technical leaders assessing David Hill for AI Engineer or Forward Deployed Engineer roles. They need credible proof of work quickly, including what is live, what is beta, and the boundaries of David's involvement.
 
 ## Product Purpose
 
-A single-page portfolio that proves David's work is real, production-grade software — not portfolio-piece toy projects. It leads with his AI/multi-agent engineering work (the headline positioning, matching his CV's "AI Automation & Development" framing), backed by live, clickable demos of sanitized versions of real client projects (a field-sales mapping platform, a financial market dashboard, a cybersecurity threat-intel tool) plus a fully real, currently-live site he built and still manages for his brother's coaching business. Success looks like a visitor concluding "this person ships real things" and reaching out.
+The portfolio makes David's verified technical work understandable and easy to assess. It supports a job application by showing real systems, the practical decisions behind them, and the ability to learn, build, operate, and improve them.
 
-## Brand Personality
+## Positioning
 
-Sharp, technical, understated. Confident without selling hard — the real production work (live demos, real architecture, real screenshots) does the persuading, not marketing copy. Minimal hype language, no inflated claims. Feels like reading a well-run engineer's own writeup of their work, not a marketing site built for them.
+This is a proof-of-work portfolio, not an agency brochure. It distinguishes authorised production work, beta work, and personal work; it does not inflate scope, claim ownership of open-source software, or expose unauthorised client systems.
 
-## Anti-references
+## Operating Context
 
-Explicitly avoid the generic AI-generated-template/SaaS-portfolio look: no stock hero-with-gradient-blob, no "trusted by" logo rows, no icon-plus-heading card grids repeated for every section, no cream/sand near-white background as a default, no tiny uppercase tracked eyebrows above every section, no 01/02/03 numbered section markers used as decoration. Should not look like it came from a portfolio-site builder or template marketplace.
+Visitors will typically arrive from a job application, CV, recruiter conversation, or direct link. They should be able to decide whether to open a case study or contact David without needing a CV upload flow. The site is also viewed on mobile.
 
-## Design Principles
+## Capabilities and Constraints
 
-- **Show, don't sell.** Real screenshots, real architecture diagrams, and live demo links carry the weight — not adjectives.
-- **Confidential work still reads as real.** The two AI/agent case studies have no public demo (real client confidentiality); their presentation must still feel as substantive and concrete as the four with live links, not like a lesser afterthought.
-- **Headline the AI engineering identity.** Visual and content hierarchy puts the multi-agent AI work first and most prominent, matching the CV's positioning — the other projects support that story, they don't compete with it.
-- **Respect the demos' own aesthetics.** Each live demo (Doctors Map, MarketPulse, Charlie Dashboard) has its own distinct visual identity; the portfolio page should feel like a confident, neutral frame around them, not clash with or mimic any one of them.
-- **Technical credibility over polish-for-its-own-sake.** Understated, precise execution (typography, spacing, real detail) signals engineering quality more than decorative flourish would.
+- Multi-Tenant AI Gateway is authorised portfolio work: two live agents (Jeeves and Orchestrator) plus two beta agents.
+- MarketPulse and Vantage Point are retained as anonymised beta work, with clear demo boundaries.
+- HillSkills is named, authorised, live work.
+- The personal AI stack can be shown only without family, cyclist, or third-party business details.
+- The NHC inspection and monitoring pipeline can be shown as work David built.
+- Meridian Doctors Map, the unfinished M365 Recon & Visibility Dashboard, and the not-ready Xero document-intelligence agent are excluded.
+- MemPalace is open source. David implemented and integrated it and built supporting diary/checkpoint workflows; he did not create MemPalace.
+- Every project claim, count, status, and permission statement must be sourced and verified before publication.
+
+## Brand Commitments
+
+Evidence-led, technically literate, and quietly confident. The portfolio should show rapid learning and serious interest without pretending David already knows everything. It may use a restrained old-school terminal influence, but must avoid generic AI language, cyber-terminal cosplay, and SaaS-template styling.
+
+## Evidence on Hand
+
+- Existing live site: `index.html`, `css/style.css`, and project assets in this directory.
+- Authorised multi-tenant, beta-project, personal-stack, HillSkills, and NHC-monitoring source material in the parent portfolio directory.
+- CV source documents in `assets/cv/` and the OpenClaw workspace.
+
+## Product Principles
+
+1. Show the work, then explain it plainly.
+2. Make scope, status, and ownership obvious.
+3. Use concrete decisions and outcomes instead of technology-name lists.
+4. Keep the experience focused enough that a recruiter can understand it on a phone.
+5. Leave out anything that cannot be honestly and safely published.
 
 ## Accessibility & Inclusion
 
-WCAG AA. Standard reduced-motion support for any scroll/reveal animation. No known specialized user needs beyond that.
+WCAG 2.2 AA baseline, strong contrast, reduced-motion support, keyboard-visible focus, and mobile-first navigation.

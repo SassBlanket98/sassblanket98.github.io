@@ -34,7 +34,11 @@ Near-black surface throughout; one saturated teal carries links, prompts, button
 
 ## Layout
 
-Every section opens with a `$ cd ~/section-name` line, echoing the idea that this is one continuous shell session scrolling down the page. Each project — and the About section — is its own terminal window (traffic-light chrome, title bar naming the "host"), so the page reads as a stack of terminal panes rather than conventional cards. The two AI/agent case studies with no public demo get a literal simulated command or in each project's terminal instead of a generic "confidential" badge: `curl -s gateway.internal/demo` → `403 Forbidden — confidential client deployment. No public demo.`
+Superseded the original single-column scroll with a persistent app shell: a sticky sidebar (`ls -la ~`-style file tree naming every section and project, live/beta status inline) beside a scrolling main column. Every pane still opens with a `$ cd ~/section-name` line, keeping the one-continuous-shell-session feel, but a hiring manager can now jump straight to a project from the sidebar instead of scrolling past everything above it.
+
+Project cards became "spec sheets": a narrow left column (status, stats, tags) beside a wider right column (title, description, decisions, diagram), instead of everything stacked top to bottom inside a terminal window. AI & Agent Systems keeps the full spec-sheet treatment (decisions, topology diagram, simulated `403 Forbidden` box) since that's the headline work; Full-Stack Delivery cards are a lighter version of the same pattern — status, tags, description, links, no diagram — since they carry less architectural weight. Below 880px the sidebar collapses into a top bar and spec-card columns stack.
+
+The two AI/agent case studies with no public demo keep a literal simulated command in place of a generic "confidential" badge: `curl -s gateway.internal/demo` → `403 Forbidden — confidential client deployment. No public demo.`
 
 ## Motion
 
