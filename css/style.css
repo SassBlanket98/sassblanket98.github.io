@@ -94,6 +94,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--in
   padding: 22px 18px;
 }
 
+.sidebar-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -103,6 +110,46 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--in
   font-size: 14px;
   margin-bottom: 22px;
 }
+
+.sidebar-bar .logo { margin-bottom: 0; }
+
+/* ---- Mobile nav toggle (hidden on desktop) ---- */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  background: var(--panel-alt);
+  border: 1px solid var(--dot);
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nav-toggle:hover { border-color: var(--border-dim); background: var(--border); }
+
+.nav-toggle-icon { position: relative; width: 16px; height: 12px; flex-shrink: 0; }
+.nav-toggle-icon span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+.nav-toggle-icon span:nth-child(1) { top: 0; }
+.nav-toggle-icon span:nth-child(2) { top: 5px; }
+.nav-toggle-icon span:nth-child(3) { top: 10px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+.nav-toggle-label { color: var(--muted); }
 
 .logo-dot {
   width: 7px;
@@ -115,6 +162,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--in
 
 .logo .user { color: var(--accent); }
 .logo .host { color: var(--dim); }
+
+.sidebar-panel { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
 .sidebar-cmd { font-size: 12px; color: var(--dim); margin-bottom: 10px; }
 
@@ -306,31 +355,43 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--in
   .sidebar {
     width: 100%;
     height: auto;
-    position: static;
+    overflow: visible;
+    position: sticky;
+    top: 0;
+    z-index: 30;
     border-right: none;
     border-bottom: 1px solid var(--border);
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 22px;
-    padding: 16px 20px;
+    padding: 12px 18px;
   }
-  .logo { margin-bottom: 0; }
-  .tree { display: flex; flex-wrap: wrap; gap: 2px 4px; margin-bottom: 0; order: 3; width: 100%; }
-  .tree-group { padding: 4px 4px 2px; }
-  .navlink.leaf { padding-left: 8px; }
+
+  .nav-toggle { display: inline-flex; }
+
+  /* Collapsed by default; JS toggles .is-open on .sidebar and syncs
+     aria-expanded on the button. Panel floats over content so opening
+     it never reflows the page underneath. */
+  .sidebar-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    background: var(--panel-alt);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 18px 20px;
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.45);
+  }
+  .sidebar.is-open .sidebar-panel { display: flex; }
+
   .sidebar-spacer { display: none; }
-  .sidebar-cta { flex-direction: row; border-top: none; padding-top: 0; order: 2; margin-left: auto; }
+  .sidebar-cta { padding-top: 16px; }
 
   .pane { padding: 28px 20px; }
   .spec-card { flex-direction: column; gap: 16px; }
   .spec-meta { width: 100%; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
   .stat-list { flex-direction: row; flex-wrap: wrap; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 480px) {
-  .sidebar-cta { width: 100%; flex-direction: column; margin-left: 0; }
 }
 
 /* ============================================================
