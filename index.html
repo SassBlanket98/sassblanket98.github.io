@@ -16,45 +16,55 @@
 
   <!-- ===================== SIDEBAR ===================== -->
   <aside class="sidebar">
-    <a href="#top" class="logo">
-      <span class="logo-dot pulse-dot" aria-hidden="true"></span>
-      <span class="user">dhill</span><span class="host">@portfolio</span>
-    </a>
-
-    <div class="sidebar-cmd">$ ls -la ~</div>
-    <nav class="tree" aria-label="Primary">
-      <a href="#about" class="navlink top">about.md</a>
-
-      <div class="tree-group">ai-systems/</div>
-      <a href="#proj-gateway" class="navlink leaf">
-        <span>&#9500;&#9472; ai-gateway.md</span><span class="status is-live">live</span>
-      </a>
-      <a href="#proj-personal" class="navlink leaf">
-        <span>&#9492;&#9472; personal-stack.md</span><span class="status is-live">live</span>
+    <div class="sidebar-bar">
+      <a href="#top" class="logo">
+        <span class="logo-dot pulse-dot" aria-hidden="true"></span>
+        <span class="user">dhill</span><span class="host">@portfolio</span>
       </a>
 
-      <div class="tree-group">full-stack/</div>
-      <a href="#proj-marketpulse" class="navlink leaf">
-        <span>&#9500;&#9472; marketpulse.md</span><span class="status is-beta">beta</span>
-      </a>
-      <a href="#proj-vantage" class="navlink leaf">
-        <span>&#9500;&#9472; vantage-point.md</span><span class="status is-beta">beta</span>
-      </a>
-      <a href="#proj-hillskills" class="navlink leaf">
-        <span>&#9500;&#9472; hillskills.md</span><span class="status is-live">live</span>
-      </a>
-      <a href="#proj-nhc" class="navlink leaf">
-        <span>&#9492;&#9472; nhc-pipeline.md</span><span class="status is-live">live</span>
-      </a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="sidebar-panel">
+        <span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="nav-toggle-label" aria-hidden="true">menu</span>
+        <span class="visually-hidden">Toggle navigation menu</span>
+      </button>
+    </div>
 
-      <a href="#contact" class="navlink top" style="margin-top:6px;">contact.md</a>
-    </nav>
+    <div class="sidebar-panel" id="sidebar-panel">
+      <div class="sidebar-cmd">$ ls -la ~</div>
+      <nav class="tree" aria-label="Primary">
+        <a href="#about" class="navlink top">about.md</a>
 
-    <div class="sidebar-spacer"></div>
+        <div class="tree-group">ai-systems/</div>
+        <a href="#proj-gateway" class="navlink leaf">
+          <span>&#9500;&#9472; ai-gateway.md</span><span class="status is-live">live</span>
+        </a>
+        <a href="#proj-personal" class="navlink leaf">
+          <span>&#9492;&#9472; personal-stack.md</span><span class="status is-live">live</span>
+        </a>
 
-    <div class="sidebar-cta">
-      <a href="assets/cv/David_Hill_CV.pdf" class="btn btn-primary" download>&#8595; curl -O cv.pdf</a>
-      <a href="mailto:david.alexander.hill@outlook.com" class="btn btn-ghost">$ mail --to me</a>
+        <div class="tree-group">full-stack/</div>
+        <a href="#proj-marketpulse" class="navlink leaf">
+          <span>&#9500;&#9472; marketpulse.md</span><span class="status is-beta">beta</span>
+        </a>
+        <a href="#proj-vantage" class="navlink leaf">
+          <span>&#9500;&#9472; vantage-point.md</span><span class="status is-beta">beta</span>
+        </a>
+        <a href="#proj-hillskills" class="navlink leaf">
+          <span>&#9500;&#9472; hillskills.md</span><span class="status is-live">live</span>
+        </a>
+        <a href="#proj-nhc" class="navlink leaf">
+          <span>&#9492;&#9472; nhc-pipeline.md</span><span class="status is-live">live</span>
+        </a>
+
+        <a href="#contact" class="navlink top" style="margin-top:6px;">contact.md</a>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="sidebar-cta">
+        <a href="assets/cv/David_Hill_CV.pdf" class="btn btn-primary" download>&#8595; curl -O cv.pdf</a>
+        <a href="mailto:david.alexander.hill@outlook.com" class="btn btn-ghost">$ mail --to me</a>
+      </div>
     </div>
   </aside>
 
