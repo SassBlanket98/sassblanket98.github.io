@@ -8,7 +8,7 @@ web
 
 ## Users
 
-Hiring managers and technical leaders assessing David Hill for AI Engineer or Forward Deployed Engineer roles. They need credible proof of work quickly, including what is live, what is beta, and the boundaries of David's involvement.
+Hiring managers and technical leaders assessing David Hill for AI and automation roles come first. Business owners and managers considering him for freelance automation, AI agent, monitoring or web work come second. Both need plain-language proof of results quickly, including what is live, what is a demo, and the limits of David's involvement.
 
 ## Product Purpose
 
@@ -24,14 +24,15 @@ Visitors will typically arrive from a job application, CV, recruiter conversatio
 
 ## Capabilities and Constraints
 
-- Multi-Tenant AI Gateway is authorised portfolio work: two live agents (Jeeves and Orchestrator) plus two beta agents.
-- MarketPulse and Vantage Point are retained as anonymised beta work, with clear demo boundaries.
+- Multi-Tenant AI Gateway is authorised portfolio work: two live agents (Jeeves and Orchestrator) plus two agents built and awaiting rollout. Do not show real client company names.
+- MarketPulse is removed from the site and CV. Vantage Point is kept as an anonymised frontend-only demo, focused on its custom agent loop.
 - HillSkills is named, authorised, live work.
 - The personal AI stack can be shown only without family, cyclist, or third-party business details.
-- The NHC inspection and monitoring pipeline can be shown as work David built.
+- The website and booking monitor is shown as work David built for an anonymised medical client. Do not name the client.
 - Meridian Doctors Map, the unfinished M365 Recon & Visibility Dashboard, and the not-ready Xero document-intelligence agent are excluded.
 - MemPalace is open source. David implemented and integrated it and built supporting diary/checkpoint workflows; he did not create MemPalace.
 - Every project claim, count, status, and permission statement must be sourced and verified before publication.
+- All human-facing copy must be run through the humanizer skill and checked so it does not read as AI-written. No em dashes in copy.
 
 ## Brand Commitments
 
