@@ -249,24 +249,27 @@
           <div class="status-row is-accent"><span class="status-dot filled" aria-hidden="true"></span>LIVE, DAILY USE</div>
           <div class="stat-list">
             <span class="stat">Self-hosted gateway</span>
-            <span class="stat">OpenAI Codex + OpenRouter models</span>
+            <span class="stat">Hosted models + one local 9B model</span>
           </div>
           <div class="tag-row">
             <span class="tag">OpenClaw</span>
             <span class="tag">MemPalace</span>
             <span class="tag">OpenAI Codex</span>
             <span class="tag">OpenRouter</span>
+            <span class="tag">llama.cpp</span>
           </div>
         </div>
         <div class="spec-detail">
           <h3>Personal AI Stack</h3>
           <div class="spec-subtitle">Self-hosted &middot; daily use</div>
           <p class="spec-desc">The multi-agent setup I use every day for research, planning and general automation. It runs on OpenClaw, and memory is handled by MemPalace, an open source project. I added my own diary and checkpoint workflows on top.</p>
+          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs on a 9B model on my own GPU through llama.cpp. A model that small can't be trusted to plan and check code changes, so Onyx hands that work to a pipeline I wrote that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan. Notes I mark private stay on the machine and are never sent to a hosted model. I'm now building the test suite and training data to see whether fine-tuning the local model makes it a more reliable orchestrator.</p>
 
           <div class="diagram">
             <div class="diagram-cmd">$ ./stack --status</div>
             <div class="diagram-line"><span class="marker">&gt;</span> OpenClaw Gateway (self-hosted)</div>
-            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; Model routing: picked per task, reviewed as the system changes</div>
+            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Model routing: picked per task, reviewed as the system changes</div>
+            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; ONYX: local 9B model on llama.cpp, hands work to a job pipeline</div>
             <div class="diagram-line"><span class="marker">&gt;</span> MemPalace (open source): diary + checkpoint workflows I built on top</div>
           </div>
 
@@ -277,6 +280,9 @@
 
           <div class="spec-links">
             <a class="btn btn-ghost" href="https://github.com/SassBlanket98/personal-ai-stack" target="_blank" rel="noopener">View write-up on GitHub &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/onyx-pipeline" target="_blank" rel="noopener">Job pipeline code &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/model-ladder" target="_blank" rel="noopener">Model test harness &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/local-llm-bench" target="_blank" rel="noopener">Local model benchmark &rarr;</a>
           </div>
         </div>
       </article>
