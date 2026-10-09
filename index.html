@@ -80,10 +80,10 @@
     <section class="pane hero-pane" id="hero">
       <div class="output-label">// OUTPUT</div>
       <h1>I build automation and AI systems for businesses, and I don't call them done until I've proven they work.</h1>
-      <p class="lede">I sit in the client meetings and I write the code, so nobody in between loses the details. Most of what's below is running for real clients. The rest is my own daily setup or a demo you can open.</p>
+      <p class="lede">AI agents are part of every coding task I take on. I set the requirements and design direction, guide the agents, then test the result, debug what fails and decide what is ready to deploy. Most of what's below is running for real clients. The rest is my own daily setup or a demo you can open.</p>
 
       <div class="hero-stats">
-        <div class="hero-stat"><div class="value">~40 min</div><div class="label">of manual website checks a day, now automated</div></div>
+        <div class="hero-stat"><div class="value">2&times;</div><div class="label">a day, an automated test booking on a client site</div></div>
         <div class="hero-stat"><div class="value">~160</div><div class="label">Macs on scripted patching</div></div>
         <div class="hero-stat"><div class="value">2</div><div class="label">live AI agents for a client workforce</div></div>
         <div class="hero-stat"><div class="value">2022</div><div class="label">building with AI tools since</div></div>
@@ -97,12 +97,12 @@
       <p>At Neozeit I'm the front person for almost all of the development work I do. If I'm building it, I'm in the meetings. I gather requirements with the client, I'm the one they call when something's off, and I do the handover and training, on site if that's what it takes.</p>
       <p>A lot of that job is working out what people need, which isn't always what they ask for. One client asked for a general AI assistant. When we talked it through, what was really bothering them was a steady stream of website security alerts nobody had time to read. So the agent I built summarises those alerts by severity. Now they get read and passed on to the team instead of sitting in an inbox.</p>
       <p>I don't accept "it should work" as an answer, from anyone, including me. When I set limits on what an AI agent can access, I go and try to get it past them. When I moved a medical client onto a new Windows Server 2025 machine, I didn't sign it off until I'd confirmed their users could log in and do their normal work.</p>
-      <p>Most of what I know, I learned by getting stuck and staying with it. I built Neozeit's three-node Proxmox cluster from scratch without ever having used Proxmox, with nobody around to ask, then moved production machines onto it that had to keep running the whole time. When the RAID storage on our backup server ran into trouble, I worked through it on my own and we didn't lose any data. ClickUp was similar. The official ClickUp MCP server doesn't support OpenClaw, the agent platform we use, so I wrote my own in TypeScript.</p>
-      <p>I've been building with AI tools since 2022, and I still look after the servers myself. That's why I'm comfortable owning a project from the first meeting down to the machine it runs on.</p>
+      <p>Most of what I know, I learned by getting stuck and staying with it. I built Neozeit's three-node Proxmox cluster from scratch without ever having used Proxmox, then moved production machines onto it while keeping them running. I still operate our Linux and Docker environment day to day. When the RAID storage on our backup server ran into trouble, I worked through it and we didn't lose any data. The official ClickUp MCP server didn't support OpenClaw, so I directed AI agents to build a TypeScript connector.</p>
+      <p>I've worked with AI tools since 2022. Today AI agents do the coding; I own the requirements, design, testing, debugging and deployment.</p>
 
       <div class="env-block">
         <div class="pane-cmd" style="margin-bottom:14px;">$ env | grep profile</div>
-        <div class="env-line"><span class="key">BASED=</span><span class="val">Johannesburg, relocating to Cape Town</span></div>
+        <div class="env-line"><span class="key">BASED=</span><span class="val">Johannesburg, South Africa</span></div>
         <div class="env-line"><span class="key">FOCUS=</span><span class="val">Automation, AI agents, monitoring and QA, web apps</span></div>
         <div class="env-line"><span class="key">STACK=</span><span class="val">Python, TypeScript/JavaScript, Node.js, React, Postgres, self-hosted infra</span></div>
         <div class="env-line"><span class="key">CURRENTLY=</span><span class="val">IT Engineer, Development &amp; Automation (Neozeit)</span></div>
@@ -125,7 +125,6 @@
         <div class="spec-meta">
           <div class="status-row is-accent"><span class="status-dot filled" aria-hidden="true"></span>LIVE, INTERNAL</div>
           <div class="stat-list">
-            <span class="stat"><b>~40 min</b> a day of manual checks replaced</span>
             <span class="stat"><b>2</b> reports a day</span>
           </div>
           <div class="tag-row">
@@ -137,12 +136,12 @@
         <div class="spec-detail">
           <h3>Website &amp; Booking Monitor</h3>
           <div class="spec-subtitle">Medical client &middot; no public demo</div>
-          <p class="spec-desc">An automated check of a medical client's public website and patient booking system. Someone used to click through the site and make a test booking by hand, first me and later a colleague. A full check took about 20 minutes, twice a day. Now it runs on a schedule. It loads the main pages, books a test appointment all the way through, confirms the booking was cleaned up afterwards, and sends a report twice a day.</p>
+          <p class="spec-desc">A Python and Playwright monitor checks an anonymised medical client's public website and patient booking system twice a day, then sends a report on Telegram. It exercises the booking flow and confirms test appointments are cleaned up. It matches doctor names loosely, so small naming differences don't stop a check.</p>
 
           <div class="decisions">
             <div class="decision-line"><span class="marker">//</span><span>It regularly catches real problems on the booking platform: a broken booking flow, pages that were down or erroring, and test data that wasn't getting cleaned up. It has also exposed settings in the platform's backend that differ from one doctor to the next.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>When something fails, the report says which step broke, who most likely needs to fix it, and what to do next, with the evidence attached.</span></div>
-            <div class="decision-line"><span class="marker">//</span><span>It's written in Python with Playwright. When a check fails, an LLM reads the failure and adds a root-cause comment to the report.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>When a check fails, an LLM reads the failure and adds a root-cause comment to the report.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>It checks its own cleanup too, so a leftover test booking gets reported instead of missed.</span></div>
           </div>
         </div>
@@ -179,11 +178,11 @@
         <div class="spec-detail">
           <h3>Multi-Tenant AI Gateway</h3>
           <div class="spec-subtitle">Client deployment &middot; two companies, one office, one Slack</div>
-          <p class="spec-desc">AI agents for two separate companies that share an office and a Slack workspace. Two agents are live, and two more are built and waiting to roll out. Each agent's tools and data are limited to its role and its company.</p>
+          <p class="spec-desc">A self-hosted gateway serves two companies that share an office and a Slack workspace. Jeeves and Orchestrator are deployed. Two more agents are built and waiting to roll out. Each agent's tools and data are limited to its role and company.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>ClickUp: staff can create tasks, assign them, check status and pull summaries from Slack instead of doing it all by hand in ClickUp. I wrote the ClickUp connector myself, because the official one didn't work with our agent platform.</span></div>
-            <div class="decision-line"><span class="marker">//</span><span>Security alerts: the agent reads the website vulnerability notices, ranks them by severity and sums them up. Those emails used to get handled inconsistently. Now they're read and forwarded to the team.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>ClickUp: staff can create tasks, assign them, check status and pull summaries from Slack. The official ClickUp connector didn't work with our agent platform, so I directed AI agents to build a custom MCP server in TypeScript. Because of ClickUp's rate limits, it fetches one project at a time.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>Security alerts: the agent reads the website vulnerability notices, ranks them by severity and sums them up. Those emails used to get handled inconsistently.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Each agent only gets the tools its role needs. I test those limits regularly and tighten them when I find a gap.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>In a trial, one of the department agents cut the time to draft the client's newspaper from a week to 2 days. It's waiting for rollout.</span></div>
           </div>
@@ -228,7 +227,7 @@
           <p class="spec-desc">A research and sales dashboard for a cybersecurity vendor. It has a news feed that AI filters and summarises, a competitor tracker, a content writer and a small outreach CRM, all behind one login.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>Competitor and company research runs through an agent loop I wrote myself, directly against Claude's API with no framework like LangChain. In the client build the model calls a tool, reads the result and keeps going, and each tool call and result streams to the screen as it happens. The news summaries and the content writer stream their output too.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>Competitor and company research runs through an agent loop I had an AI agent write, directly against Claude's API with no framework like LangChain. In the client build the model calls a tool, reads the result and keeps going, and each tool call and result streams to the screen as it happens. The news summaries and the content writer stream their output too.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Plain keyword filtering handles most of the news, so the model only gets called when something needs judgement.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>The public demo runs in the browser on sample data. There's no live backend behind it.</span></div>
           </div>
@@ -263,7 +262,7 @@
           <h3>Personal AI Stack</h3>
           <div class="spec-subtitle">Self-hosted &middot; daily use</div>
           <p class="spec-desc">The multi-agent setup I use every day for research, planning and general automation. It runs on OpenClaw, and memory is handled by MemPalace, an open source project. I added my own diary and checkpoint workflows on top.</p>
-          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs on a 9B model on my own GPU through llama.cpp. A model that small can't be trusted to plan and check code changes, so Onyx hands that work to a pipeline I wrote that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan. Notes I mark private stay on the machine and are never sent to a hosted model. I'm now building the test suite and training data to see whether fine-tuning the local model makes it a more reliable orchestrator.</p>
+          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs on a 9B model on my own GPU through llama.cpp. A model that small can't be trusted to plan and check code changes, so Onyx hands that work to a job pipeline that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan. Notes I mark private stay on the machine and are never sent to a hosted model. I'm now building the test suite and training data to see whether fine-tuning the local model makes it a more reliable orchestrator.</p>
 
           <div class="diagram">
             <div class="diagram-cmd">$ ./stack --status</div>
@@ -386,7 +385,7 @@
       </div>
 
       <div class="exit-line"><span class="prompt">$</span> exit<br><span class="prompt">&gt;</span> session closed.</div>
-      <div class="footer-meta">David Hill &middot; Johannesburg, relocating to Cape Town &middot; <a href="https://github.com/SassBlanket98" target="_blank" rel="noopener">github.com/SassBlanket98</a></div>
+      <div class="footer-meta">David Hill &middot; Johannesburg, South Africa &middot; <a href="https://github.com/SassBlanket98" target="_blank" rel="noopener">github.com/SassBlanket98</a></div>
     </section>
 
   </main>
