@@ -55,7 +55,7 @@
           <span>&#9500;&#9472; sales-map.md</span><span class="status is-live">live</span>
         </a>
         <a href="#proj-briefing" class="navlink leaf">
-          <span>&#9500;&#9472; briefing.md</span><span class="status is-live">live</span>
+          <span>&#9500;&#9472; briefing.md</span><span class="status is-beta">approved</span>
         </a>
         <a href="#proj-hillskills" class="navlink leaf">
           <span>&#9492;&#9472; hillskills.md</span><span class="status is-live">live</span>
@@ -86,7 +86,7 @@
         <div class="hero-stat"><div class="value">2&times;</div><div class="label">a day, an automated test booking on a client site</div></div>
         <div class="hero-stat"><div class="value">~160</div><div class="label">Macs on scripted patching</div></div>
         <div class="hero-stat"><div class="value">2</div><div class="label">live AI agents for a client workforce</div></div>
-        <div class="hero-stat"><div class="value">2022</div><div class="label">building with AI tools since</div></div>
+        <div class="hero-stat"><div class="value">2022</div><div class="label">building with AI tools since late</div></div>
       </div>
     </section>
 
@@ -97,8 +97,8 @@
       <p>At Neozeit I'm the front person for almost all of the development work I do. If I'm building it, I'm in the meetings. I gather requirements with the client, I'm the one they call when something's off, and I do the handover and training, on site if that's what it takes.</p>
       <p>A lot of that job is working out what people need, which isn't always what they ask for. One client asked for a general AI assistant. When we talked it through, what was really bothering them was a steady stream of website security alerts nobody had time to read. So the agent I built summarises those alerts by severity. Now they get read and passed on to the team instead of sitting in an inbox.</p>
       <p>I don't accept "it should work" as an answer, from anyone, including me. When I set limits on what an AI agent can access, I go and try to get it past them. When I moved a medical client onto a new Windows Server 2025 machine, I didn't sign it off until I'd confirmed their users could log in and do their normal work.</p>
-      <p>Most of what I know, I learned by getting stuck and staying with it. I built Neozeit's three-node Proxmox cluster from scratch without ever having used Proxmox, then moved production machines onto it while keeping them running. I still operate our Linux and Docker environment day to day. When the RAID storage on our backup server ran into trouble, I worked through it and we didn't lose any data. The official ClickUp MCP server didn't support OpenClaw, so I directed AI agents to build a TypeScript connector.</p>
-      <p>I've worked with AI tools since 2022. Today AI agents do the coding; I own the requirements, design, testing, debugging and deployment.</p>
+      <p>Most of what I know, I learned by getting stuck and staying with it. I installed Neozeit's three-node Proxmox cluster from a colleague's design in 2025, then moved production machines onto it and have operated it since. I still operate our Linux and Docker environment day to day. When the RAID storage on our backup server ran into trouble, I worked through it and we didn't lose any data. The official ClickUp MCP server didn't support OpenClaw, so I directed AI agents to build a TypeScript connector.</p>
+      <p>I've worked with AI tools since ChatGPT's launch in late 2022. Today AI agents do the coding; I own the requirements, design, testing, debugging and deployment.</p>
 
       <div class="env-block">
         <div class="pane-cmd" style="margin-bottom:14px;">$ env | grep profile</div>
@@ -136,10 +136,10 @@
         <div class="spec-detail">
           <h3>Website &amp; Booking Monitor</h3>
           <div class="spec-subtitle">Medical client &middot; no public demo</div>
-          <p class="spec-desc">A Python and Playwright monitor checks an anonymised medical client's public website and patient booking system twice a day, then sends a report on Telegram. It exercises the booking flow and confirms test appointments are cleaned up. It matches doctor names loosely, so small naming differences don't stop a check.</p>
+          <p class="spec-desc">A Python and Playwright monitor checks an anonymised medical client's public website and patient booking system twice a day, then sends a report on Telegram. It exercises the booking flow and confirms test appointments are cleaned up. Cancellation matching uses appointment time, day and month when the portal displays a friendly date label.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>It regularly catches real problems on the booking platform: a broken booking flow, pages that were down or erroring, and test data that wasn't getting cleaned up. It has also exposed settings in the platform's backend that differ from one doctor to the next.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>It regularly catches real problems on the booking platform: a broken booking flow, pages that were down or erroring, and test data that wasn't getting cleaned up. It reports failed booking and cancellation steps so they can be investigated.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>When something fails, the report says which step broke, who most likely needs to fix it, and what to do next, with the evidence attached.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>When a check fails, an LLM reads the failure and adds a root-cause comment to the report.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>It checks its own cleanup too, so a leftover test booking gets reported instead of missed.</span></div>
@@ -171,20 +171,19 @@
           <div class="tag-row">
             <span class="tag">OpenClaw</span>
             <span class="tag">Multi-Agent</span>
-            <span class="tag">Tenant Isolation</span>
+            <span class="tag">Role-Scoped Tools</span>
             <span class="tag">MemPalace</span>
           </div>
         </div>
         <div class="spec-detail">
           <h3>Multi-Tenant AI Gateway</h3>
-          <div class="spec-subtitle">Client deployment &middot; two companies, one office, one Slack</div>
-          <p class="spec-desc">A self-hosted gateway serves two companies that share an office and a Slack workspace. Jeeves and Orchestrator are deployed. Two more agents are built and waiting to roll out. Each agent's tools and data are limited to its role and company.</p>
+          <div class="spec-subtitle">Client workspace and internal studio &middot; one gateway</div>
+          <p class="spec-desc">A self-hosted OpenClaw gateway has a client workspace and an internal studio. Jeeves and Orchestrator are deployed. Two department agents are built and paused pending rollout. Each agent has tools and memory scoped to its role.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>ClickUp: staff can create tasks, assign them, check status and pull summaries from Slack. The official ClickUp connector didn't work with our agent platform, so I directed AI agents to build a custom MCP server in TypeScript. Because of ClickUp's rate limits, it fetches one project at a time.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>ClickUp: staff can create tasks, assign them, check status and pull summaries from Slack. The official ClickUp connector didn't work with our agent platform, so I directed AI agents to build a custom MCP server in TypeScript. The server caps concurrent requests and backs off when ClickUp returns HTTP 429.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Security alerts: the agent reads the website vulnerability notices, ranks them by severity and sums them up. Those emails used to get handled inconsistently.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Each agent only gets the tools its role needs. I test those limits regularly and tighten them when I find a gap.</span></div>
-            <div class="decision-line"><span class="marker">//</span><span>In a trial, one of the department agents cut the time to draft the client's newspaper from a week to 2 days. It's waiting for rollout.</span></div>
           </div>
 
           <div class="diagram">
@@ -194,7 +193,7 @@
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; JEEVES: client PM agent <span class="badge">[live]</span></div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; NOVA <span class="badge is-beta">[awaiting rollout]</span></div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; SAGE <span class="badge is-beta">[awaiting rollout]</span></div>
-            <div class="diagram-line"><span class="marker">&gt;</span> channels &#8594; Slack, scoped per tenant <span class="badge is-beta">[user-facing]</span></div>
+            <div class="diagram-line"><span class="marker">&gt;</span> channels &#8594; Slack, scoped per agent <span class="badge is-beta">[user-facing]</span></div>
             <div class="diagram-line"><span class="marker">&gt;</span> channels &#8594; Discord / Telegram <span class="badge is-beta">[operator access only]</span></div>
           </div>
 
@@ -203,7 +202,7 @@
             <div class="line"><span class="resp-prompt">&gt;</span><span class="resp-text">403 Forbidden: confidential client deployment. No public demo.</span></div>
           </div>
 
-          <p class="caption">Company names and identifying details are anonymised. The architecture and security model are real.</p>
+          <p class="caption">Company names and identifying details are anonymised. Tool scoping is configured per agent; I test the access boundaries.</p>
 
           <div class="spec-links">
             <a class="btn btn-ghost" href="https://github.com/SassBlanket98/multi-tenant-ai-stack" target="_blank" rel="noopener">View write-up on GitHub &rarr;</a>
@@ -227,7 +226,7 @@
           <p class="spec-desc">A research and sales dashboard for a cybersecurity vendor. It has a news feed that AI filters and summarises, a competitor tracker, a content writer and a small outreach CRM, all behind one login.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>Competitor and company research runs through an agent loop I had an AI agent write, directly against Claude's API with no framework like LangChain. In the client build the model calls a tool, reads the result and keeps going, and each tool call and result streams to the screen as it happens. The news summaries and the content writer stream their output too.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>The client build is in beta. Competitor and company research uses a tool-use loop I had an AI agent write against the Anthropic Messages API, without an agent framework. Tool calls and results stream to the browser. The news summariser and content writer use separate API paths.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>Plain keyword filtering handles most of the news, so the model only gets called when something needs judgement.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>The public demo runs in the browser on sample data. There's no live backend behind it.</span></div>
           </div>
@@ -262,7 +261,7 @@
           <h3>Personal AI Stack</h3>
           <div class="spec-subtitle">Self-hosted &middot; daily use</div>
           <p class="spec-desc">The multi-agent setup I use every day for research, planning and general automation. It runs on OpenClaw, and memory is handled by MemPalace, an open source project. I added my own diary and checkpoint workflows on top.</p>
-          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs on a 9B model on my own GPU through llama.cpp. A model that small can't be trusted to plan and check code changes, so Onyx hands that work to a job pipeline that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan. Notes I mark private stay on the machine and are never sent to a hosted model. I'm now building the test suite and training data to see whether fine-tuning the local model makes it a more reliable orchestrator.</p>
+          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs on a 9B model on my own GPU through llama.cpp. A model that small can't be trusted to plan and check code changes, so Onyx hands that work to a job pipeline that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan by default. The chat model runs locally, but messages also go to a hosted router and relevance judge. Notes marked private are never sent to either. I'm now building the test suite and training data to see whether fine-tuning the local model makes it a more reliable orchestrator.</p>
 
           <div class="diagram">
             <div class="diagram-cmd">$ ./stack --status</div>
@@ -295,6 +294,7 @@
       <div class="legend">
         <span><span class="legend-dot filled" aria-hidden="true"></span>Live production site</span>
         <span><span class="legend-dot filled" aria-hidden="true"></span>Live, anonymised client work</span>
+        <span><span class="legend-dot outline" aria-hidden="true"></span>Approved, awaiting launch</span>
       </div>
 
       <!-- Field-Sales Mapping Platform -->
@@ -315,7 +315,7 @@
 
           <div class="decisions">
             <div class="decision-line"><span class="marker">//</span><span>The PWA queues changes made offline and syncs them when signal returns. The server removes duplicates, so a flaky connection can't count the same trip twice.</span></div>
-            <div class="decision-line"><span class="marker">//</span><span>Territory permissions are enforced on the server as well as in the browser, and logins need TOTP 2FA.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>Territory permissions are enforced on the server as well as in the browser. The app uses session-cookie login with TOTP 2FA.</span></div>
           </div>
         </div>
       </article>
@@ -323,7 +323,7 @@
       <!-- Market Briefing Dashboard -->
       <article class="spec-card is-compact" id="proj-briefing">
         <div class="spec-meta">
-          <div class="status-row is-accent"><span class="status-dot filled" aria-hidden="true"></span>LIVE, CLIENT WORK</div>
+          <div class="status-row is-muted"><span class="status-dot outline" aria-hidden="true"></span>APPROVED, AWAITING LAUNCH</div>
           <div class="tag-row">
             <span class="tag">React + Express</span>
             <span class="tag">TypeScript</span>
@@ -337,7 +337,7 @@
           <p class="spec-desc">A daily briefing tool for a financial advisory practice. It pulls market data and regional news, summarises the articles with Claude, lets an operator review them, and sends a formatted briefing to the firm's Telegram channel.</p>
 
           <div class="decisions">
-            <div class="decision-line"><span class="marker">//</span><span>It started as a single-file Flask prototype. Once the practice relied on it daily, I rebuilt it in React, Express and TypeScript with JWT and TOTP auth, Jest tests and GitHub Actions CI.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>It started as a single-file Flask prototype. I directed its rebuild in React, Express, TypeScript and PostgreSQL with JWT and TOTP auth, Jest tests and GitHub Actions CI. The client has approved it; it is awaiting launch.</span></div>
             <div class="decision-line"><span class="marker">//</span><span>The market-data script stayed in Python because it already worked. Express runs it and reads its JSON output.</span></div>
           </div>
         </div>
