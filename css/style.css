@@ -323,6 +323,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--in
 
 .exhibit { margin: 0 0 16px; max-width: 420px; }
 .exhibit img { width: 100%; aspect-ratio: 1568 / 744; object-fit: cover; border: 1px solid var(--border); border-radius: 4px; }
+.exhibit.is-video { max-width: 640px; }
+.exhibit video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--border); border-radius: 4px; }
 .exhibit figcaption { font-size: 10.5px; color: var(--dim); margin-top: 5px; }
 
 .shots-cmd { font-size: 12px; margin-bottom: 2px; color: var(--muted); }
