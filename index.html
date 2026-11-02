@@ -40,6 +40,9 @@
         </a>
 
         <div class="tree-group">ai-systems/</div>
+        <a href="#proj-station" class="navlink leaf">
+          <span>&#9500;&#9472; station.md</span><span class="status is-live">oss</span>
+        </a>
         <a href="#proj-gateway" class="navlink leaf">
           <span>&#9500;&#9472; ai-gateway.md</span><span class="status is-live">live</span>
         </a>
@@ -159,6 +162,46 @@
         <span><span class="legend-dot outline" aria-hidden="true"></span>Interactive demo (anonymised client work)</span>
       </div>
 
+      <!-- Orchestration Station -->
+      <article class="spec-card" id="proj-station">
+        <div class="spec-meta">
+          <div class="status-row is-accent"><span class="status-dot filled" aria-hidden="true"></span>OPEN SOURCE, DAILY USE</div>
+          <div class="stat-list">
+            <span class="stat"><b>25</b> agents, one prompt</span>
+            <span class="stat"><b>18</b> games in 27 min</span>
+            <span class="stat"><b>~$0.40</b> pay-per-token</span>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Python stdlib</span>
+            <span class="tag">TUI</span>
+            <span class="tag">Multi-Agent</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="spec-detail">
+          <h3>Orchestration Station</h3>
+          <div class="spec-subtitle">Open-source agent monitor &middot; public release of Latifundium</div>
+          <p class="spec-desc">A terminal dashboard that shows what my AI orchestrators and their worker agents are doing: who's running, what each one was told, every tool call, and what it costs. It reads plain files the agents write, so it works across Claude Code, Codex and OpenCode without hooking into any of them. Latifundium is the version I run every day; Orchestration Station is its open-source release.</p>
+
+          <div class="decisions">
+            <div class="decision-line"><span class="marker">//</span><span>Read-only by default. Starting or stopping workers needs a flag, so a monitor I share can't change anything.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>A small Dockerised quota service sends each job to the cheapest model that still has usage headroom, and the dashboard shows those quotas and API spend live.</span></div>
+            <div class="decision-line"><span class="marker">//</span><span>To show it off I gave one loose prompt. A Claude lead planned it with me, then ran 3 managers, 18 builders on mixed models and 3 reviewers. 18 browser games came out in 27 minutes for about 40 cents of API cost. The first review passed 8 of 18, so a fix pass took on the rest.</span></div>
+          </div>
+
+          <figure class="exhibit is-video">
+            <video controls preload="none" playsinline poster="assets/fleet/poster.jpg">
+              <source src="assets/fleet/fleet-arcade-run.mp4" type="video/mp4">
+            </video>
+            <figcaption>fleet-arcade-run.mp4 &middot; the prompt, Latifundium during the run, and the result (2 min)</figcaption>
+          </figure>
+          <div class="spec-links">
+            <a class="btn btn-primary" href="https://arcade.automatism.co.za" target="_blank" rel="noopener">Play the 18 games &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/orchestration-station" target="_blank" rel="noopener">View code on GitHub &rarr;</a>
+          </div>
+        </div>
+      </article>
+
       <!-- Multi-Tenant AI Gateway -->
       <article class="spec-card" id="proj-gateway">
         <div class="spec-meta">
@@ -247,7 +290,7 @@
           <div class="status-row is-accent"><span class="status-dot filled" aria-hidden="true"></span>LIVE, DAILY USE</div>
           <div class="stat-list">
             <span class="stat">Self-hosted gateway</span>
-            <span class="stat">Hosted models + one local 9B model</span>
+            <span class="stat">Hosted models + a local 27B model</span>
           </div>
           <div class="tag-row">
             <span class="tag">OpenClaw</span>
@@ -261,13 +304,13 @@
           <h3>Personal AI Stack</h3>
           <div class="spec-subtitle">Self-hosted &middot; daily use</div>
           <p class="spec-desc">The multi-agent setup I use every day for research, planning and general automation. It runs on OpenClaw, and memory is handled by MemPalace, an open source project. I added my own diary and checkpoint workflows on top.</p>
-          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs on a 9B model on my own GPU through llama.cpp. A model that small can't be trusted to plan and check code changes, so Onyx hands that work to a job pipeline that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan by default. The chat model runs locally, but messages also go to a hosted router and relevance judge. Notes marked private are never sent to either. I'm now building the test suite and training data to see whether fine-tuning the local model makes it a more reliable orchestrator.</p>
+          <p class="spec-desc">The newest agent, Onyx, is my day-to-day assistant on Telegram, and it runs Qwen3.8-27B on my own two GPUs through llama.cpp. A local model still isn't the right tool to plan and check code changes, so Onyx hands that work to a job pipeline that plans, builds, verifies and reviews with stronger models, and stops for my approval after the plan by default. The chat model runs locally, but messages also go to a hosted router and relevance judge. Notes marked private are never sent to either.</p>
 
           <div class="diagram">
             <div class="diagram-cmd">$ ./stack --status</div>
             <div class="diagram-line"><span class="marker">&gt;</span> OpenClaw Gateway (self-hosted)</div>
             <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9500;&#9472; Model routing: picked per task, reviewed as the system changes</div>
-            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; ONYX: local 9B model on llama.cpp, hands work to a job pipeline</div>
+            <div class="diagram-line" style="padding-left:16px;"><span class="marker">&gt;</span> &#9492;&#9472; ONYX: local 27B model on llama.cpp, hands work to a job pipeline</div>
             <div class="diagram-line"><span class="marker">&gt;</span> MemPalace (open source): diary + checkpoint workflows I built on top</div>
           </div>
 
@@ -279,9 +322,7 @@
           <div class="spec-links">
             <a class="btn btn-ghost" href="https://github.com/SassBlanket98/personal-ai-stack" target="_blank" rel="noopener">View write-up on GitHub &rarr;</a>
             <a class="btn btn-ghost" href="https://github.com/SassBlanket98/onyx-pipeline" target="_blank" rel="noopener">Job pipeline code &rarr;</a>
-            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/model-ladder" target="_blank" rel="noopener">Model test harness &rarr;</a>
-            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/local-llm-bench" target="_blank" rel="noopener">Local model benchmark &rarr;</a>
-          </div>
+            <a class="btn btn-ghost" href="https://github.com/SassBlanket98/model-ladder" target="_blank" rel="noopener">Model test harness &rarr;</a>          </div>
         </div>
       </article>
     </section>
